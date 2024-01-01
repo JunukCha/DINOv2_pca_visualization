@@ -93,14 +93,14 @@ def main(save_fg_mask=False, img_size=224, output_folder="outputs"):
 
     ### Raw
     pca = PCA(n_components=3)
-    pca_features = pca.fit_transform(x_norm_patchtokens.reshape(4*patch_h*patch_w, -1))
-    pca_features = pca_features.reshape(4, patch_h*patch_w, 3)
+    pca_features = pca.fit_transform(x_norm_patchtokens.reshape(img_cnt*patch_h*patch_w, -1))
+    pca_features = pca_features.reshape(img_cnt, patch_h*patch_w, 3)
     for i in range(img_cnt):
         mask = masks[i]
         pca_features[i, ~mask] = np.min(pca_features[i])
-    pca_features = pca_features.reshape(4*patch_h*patch_w, -1)
+    pca_features = pca_features.reshape(img_cnt*patch_h*patch_w, -1)
     fg_result = minmax_scale(pca_features)
-    fg_result = fg_result.reshape(4, patch_h, patch_w, 3)
+    fg_result = fg_result.reshape(img_cnt, patch_h, patch_w, 3)
 
     plt.figure(figsize=(8, 8))
     for i in range(img_cnt):
