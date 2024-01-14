@@ -1,3 +1,5 @@
+Please refer to [this post](https://junukcha.github.io/code/2023/12/31/dinov2-pca-visualization/).
+
 ## Install
 Run `source scripts/install.sh`.
 
